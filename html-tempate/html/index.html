@@ -1,0 +1,14 @@
+{{define "title"}}Home{{end}}
+
+{{define "main"}}
+	<div class="birthday"><h1>BIRTHDAYS!</h1></div>
+	<div class="form-container">
+		<form action="/" method="post">
+			<input type="text" name="name" autofocus placeholder="Name: ">
+			<input type="text" name="month" placeholder="Month: ">
+			<input type="text" name="day" placeholder="Day: ">
+			<button type="submit">Add Birthday</button>
+		</form>
+	</div>
+	<div class="birthdays-container"></div>
+{{end}}

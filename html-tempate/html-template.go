@@ -1,10 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 )
+
+type BirthdayDetails struct {
+	Name string
+	Month string
+	Day string
+}
+
 
 func RunServer() {
 	http.HandleFunc("/", handlePage)
@@ -20,8 +28,8 @@ func handlePage(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	files := []string{
-		"./html/base.tmpl",
-		"./html/index.tmpl",
+		"./html/base.html",
+		"./html/index.html",
 	}
 	templates, err := template.ParseFiles(files...)
 	if err != nil {
@@ -36,6 +44,19 @@ func handlePage(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, "", http.StatusInternalServerError)
 		return
 	}
+
+	birthdays := []BirthdayDetails{} 
+
+	if request.Method == http.MethodPost {
+		birthday := BirthdayDetails {
+			Name: request.FormValue("name"),
+			Month: request.FormValue("month"),
+			Day: request.FormValue("day"),
+		}
+		birthdays = append(birthdays, birthday)
+	}
+
+	fmt.Println(birthdays)
 }
 
 func main() {
