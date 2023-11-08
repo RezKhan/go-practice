@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -14,6 +15,7 @@ type Book struct {
 	ID       int
 	AuthorID int
 	Title    string
+	TitleArr []string
 }
 
 func RunServer() {
@@ -41,12 +43,12 @@ func dbaction() ([]Book, error) {
 	var books []Book
 	for rows.Next() {
 		var book Book
-
+ 
 		err = rows.Scan(&book.ID, &book.AuthorID, &book.Title)
 		if err != nil {
 			log.Fatal(err)
 		}
-
+		book.TitleArr = strings.Split(book.Title, "")
 		books = append(books, book)
 	}
 

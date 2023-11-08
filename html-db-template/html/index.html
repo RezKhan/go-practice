@@ -10,8 +10,11 @@
     <main>
         <div class="books-container">
             {{ range . }}
-            <div class="book">{{ .Title }} by {{ .AuthorID }}</div>
+			<div class="book">{{ .Title }} </div>
+			{{ range $i, $tt := .TitleArr }}<span id="{{ $i }}">{{ $tt }}</span>{{ end }}
             {{ end }}
+			<div class="book">
+			</div>
         </div>
     </main>
 </body>
